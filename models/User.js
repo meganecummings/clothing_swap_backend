@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const defaultImage = require('../avataar_default.png');
+const defaultImage = require('./assets');
 
 const UserSchema = new Schema({
     username: {
@@ -41,10 +41,14 @@ const UserSchema = new Schema({
         unique: true
     },
     slug: {
-
-    }
+        type: String
+    },
+    posts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Post'
+        }
+    ]
 });
 
-const User = mongoose.model('User', UserSchema);
-
-module.exports = User;
+module.exports = mongoose.model('User', UserSchema);
