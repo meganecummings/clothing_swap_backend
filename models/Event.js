@@ -2,14 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const EventSchema = new Schema({
-    brand: {
-        type: String
-    },
-    size: {
-        type: Array
-    },
-    category: {
-        type: String
+    username: {
+        type: String,
+        required: true
     },
     description: {
         type: String
@@ -18,10 +13,8 @@ const EventSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    image: {
-        type: String
-    },
     slug: {
         type: String
     }
-})
+});
+

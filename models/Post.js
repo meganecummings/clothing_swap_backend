@@ -14,7 +14,8 @@ const PostSchema = new Schema({
         minlength: 1
     },
     event_slug: {
-        type: String
+        type: String,
+        required: true
     },
     content: {
         type: String,
