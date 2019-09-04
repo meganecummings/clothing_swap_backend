@@ -13,16 +13,16 @@ const PostSchema = new Schema({
         maxlength: 200,
         minlength: 1
     },
-    event_slug: {
-        type: String,
-        required: true
-    },
     content: {
         type: String,
         required: true,
         maxlength: 1000
     },
-    date_posted: {
+    event_slug: {
+        type: String,
+        required: true
+    },
+    date_created: {
         type: Date,
         default: Date.now
     },

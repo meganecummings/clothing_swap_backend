@@ -13,12 +13,6 @@ const CommentSchema = new Schema({
             ref: 'User',
         }
     ],
-    post_id: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Post',
-        }
-    ], 
     date_commented: {
         type: Date,
         default: Date.now
