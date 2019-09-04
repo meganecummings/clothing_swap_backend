@@ -25,9 +25,12 @@ const EventSchema = new Schema({
     end_time: {
         type: String
     }, 
-    posts: {
-        type: Array
-    },
+    posts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Post'
+        }
+    ],
     cancelled: {
         type: Boolean,
         default: false
@@ -35,9 +38,12 @@ const EventSchema = new Schema({
     cancelled_at: {
         type: Date
     },
-    items: {
-        type: Array
-    },
+    items: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Items'
+        }
+    ],
     attendees: [User.schema],
     slug: {
         type: String
