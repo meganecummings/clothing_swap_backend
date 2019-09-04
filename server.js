@@ -14,8 +14,8 @@ app.use(express.json());
 
 // Custom Logger Middleware
 app.use((request, response, next) => {
-    const url = req.url;
-    const method = req.method;
+    const url = request.url;
+    const method = request.method;
     const requestedAt = new Date().toLocaleDateString();
     console.table({ url, method, requestedAt });
     next();
