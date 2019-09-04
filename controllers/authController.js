@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const validate = require('../validation/register');
 
 // Database
 const db = require('../models');
@@ -9,72 +10,50 @@ function getTime() {
 
 module.exports = {
     register: (request, response) => {
-        const errors = [];
+        const { errors, notValid } = validate(request.body);
 
-        if (!request.body.username) {
-            errors.push({ field: 'Username', message: 'Please enter a username' });
+        if (notValid) {
+            return response.status(400).json({ status: 400, errors });
         };
-        if (db.User.findOne({ username: request.body.username }), (error, foundUser) => { 
-            if (error) return response.status(500).json({ status: 500, message: 'Something went wrong' })
-            if (foundUser) errors.push({ field: 'Username', message: 'Username already exists' });
-        });
 
-        if (!request.body.email) {
-            errors.push({ field: 'Email', message:'Please enter an email' });
-        };
-        if (db.User.findOne({ email: request.body.email }), (error, foundEmaiil) => {
+        db.User.findOne({ email: request.body.email }, (error, foundEmail) => {
             if (error) return response.status(500).json({ status: 500, message: 'Something went wrong.' });
-            if (foundEmaiil) errors.push({ field: 'Email', message: 'Email already exists' });
-        });
+            if (foundEmail) return response.status(400).json({ status: 400, message: 'Email address has already been registered. Please try again' });
 
-        if (!request.body.password) {
-            errors.push({ field: 'Password', message: 'Please enter a password' });
-        };
-        if (!request.body.password2) {
-            errors.push({ filed: 'Password Confirmation', message: 'Please confirm your password' });
-        };
-        if (request.body.password !== request.body.password) {
-            errors.push({ field: 'Password Match', message: 'Passwords do not Match. Please try again' });
-        };
-
-        if (errors.length) {
-            return response.status(500).json({ status: 500, message: errors });
-        };
-
-        bcrypt.genSalt(10, (error, salt) => {
-            if (error) return response.status(500).json({ 
-                status: 500,
-                error,
-                message: 'genSalt. Something went wrong. Please try again'
-            });
-
-            bcrypt.hash(request.body.password, salt, (error, hash) => {
+            bcrypt.genSalt(10, (error, salt) => {
                 if (error) return response.status(500).json({ 
-                    status: 500, 
+                    status: 500,
                     error,
-                    message: 'hash. Something went wrong, please try again'
+                    message: 'genSalt. Something went wrong. Please try again'
                 });
 
-                const newUser = { 
-                    username: request.body.username, 
-                    email: request.body.email,
-                    first_name: request.body.first_name,
-                    password: hash
-                };
-
-                db.User.create(newUser, (error, savedUser) => {
+                bcrypt.hash(request.body.password, salt, (error, hash) => {
                     if (error) return response.status(500).json({ 
-                        status: 500,
+                        status: 500, 
                         error,
-                        message: error
+                        message: 'hash. Something went wrong, please try again'
                     });
-                    response.status(200).json({ 
-                        status: 201, 
-                        data: savedUser, 
-                        message: 'Successfully created a new user!', 
-                        requestedAt: getTime() 
+
+                    const newUser = { 
+                        email: request.body.email,
+                        username: request.body.username,
+                        password: hash
+                    };
+
+                    db.User.create(newUser, (error, savedUser) => {
+                        if (error) return response.status(500).json({ 
+                            status: 500,
+                            error,
+                            message: 'Something went wrong - please try again'
+                        });
+                        response.status(201).json({ 
+                            status: 201, 
+                            data: savedUser, 
+                            message: 'Successfully created a new user!', 
+                            requestedAt: getTime() 
+                        });
+                        console.log(savedUser)
                     });
-                    console.log(savedUser)
                 });
             });
         });
@@ -125,7 +104,6 @@ module.exports = {
             });
         });
     },
-
     logout: (request, response) => {
         request.session.destroy(error => {
             if (error) return response.status(500).json({ 
@@ -145,7 +123,7 @@ module.exports = {
         response.status(200).json({ 
             status: 200, 
             data: response,
-            message: 'Current User Verified.'
+            message: `Current user verified. User ID = ${request.session.currentUser.id}`
          });
     }
 };
