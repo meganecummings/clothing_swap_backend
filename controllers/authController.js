@@ -68,7 +68,12 @@ module.exports = {
                         error,
                         message: error
                     });
-                    response.status(200).json({ status: 201, data: savedUser, message: 'Successfully created a new user!'});
+                    response.status(200).json({ 
+                        status: 201, 
+                        data: savedUser, 
+                        message: 'Successfully created a new user!', 
+                        requestedAt: getTime() 
+                    });
                     console.log(savedUser)
                 });
             });
@@ -103,10 +108,17 @@ module.exports = {
                  if (isMatch) {
                      request.session.loggedIn = true,
                      request.session.currentUser = { id: foundUser._id };
-                     return response.status(200).json({ status: 200, error, message: 'Success', id: foundUser._id });
+                     return response.status(200).json({ 
+                        status: 200, 
+                        data: isMatch,
+                        message: 'Success', 
+                        id: foundUser._id,
+                        requestedAt: getTime()
+                     });
                  } else {
                      return response.status(400).json({ 
                          status: 400,
+                         error,
                          message: 'Email or password is incorrect'
                      });
                  }
@@ -116,12 +128,24 @@ module.exports = {
 
     logout: (request, response) => {
         request.session.destroy(error => {
-            if (error) return response.status(500).json({ status: 500, error, message: 'Something went wrong. Please try again.'});
+            if (error) return response.status(500).json({ 
+                status: 500, 
+                error, 
+                message: 'Something went wrong. Please try again.'
+            });
             response.sendStatus(200);
         });
     },
     verify: (request, response) => {
-        if (!request.session.currentUser) return response.status(401).json({ status: 401, message: 'Unauthorized. Please try again' });
-        response.status(200).json({ status: 200, message: 'Current User Verified.' });
+        if (!request.session.currentUser) return response.status(401).json({ 
+            status: 401, 
+            error,
+            message: 'Unauthorized. Please try again'
+         });
+        response.status(200).json({ 
+            status: 200, 
+            data: response,
+            message: 'Current User Verified.'
+         });
     }
 };
