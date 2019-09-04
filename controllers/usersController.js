@@ -35,17 +35,17 @@ module.exports = {
         });
     },
     delete: (request, response) => {
-        db.User.findByIdAndDelete(req.params.user_id, (error, deletedUser) => {
-            if (error) return response(500).json({ status: 500, error, message: 'Something went wrong, Please try again.' });
+        db.User.findByIdAndDelete(request.params.user_id, (error, deletedUser) => {
+            if (error) return response.status(500).json({ status: 500, error, message: 'Something went wrong, Please try again.' });
             response.status(200).json({
                 status: 200,
-                data: `Success! Deleted ${deletedUser.first_name}`,
+                data: `Success! Deleted ${deletedUser.username}`,
                 requestedAt: getTime()
             });
         });
     },
     edit: (request, response) => {
-        db.User.findByIdAndUpdate(req.paramas.user_id, req.body, { new: true }, (error, editedUser) => {
+        db.User.findByIdAndUpdate(request.paramas.user_id, request.body, { new: true }, (error, editedUser) => {
             if (error) return response.status(400).json({
                 status: 400, error, message: 'Something went wrong. Please try again'
             });
@@ -57,7 +57,7 @@ module.exports = {
         });
     },
     create: (request, response) => {
-        const newUser = req.body;
+        const newUser = request.body;
         db.User.create(newUser, (error, createdUser) => {
             if (error) return response.status(400).json({ 
                 status: 400, error, message: 'Something went wrong. Please try again!'
