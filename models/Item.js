@@ -2,22 +2,28 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ItemSchema = new Schema({
-    user: [
+    user_id: [
         {
             type: Schema.Types.ObjectId,
             ref: 'User',
         }
     ], 
+    name: {
+        type: String
+    },
     brand: {
         type: String
     },
     size: {
-        type: Array
+        type: String
     },
     category: {
         type: String
     },
     description: {
+        type: String
+    },
+    quality: {
         type: String
     },
     date_created: {
@@ -29,5 +35,11 @@ const ItemSchema = new Schema({
     },
     slug: {
         type: String
-    }
+    },
+    posts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Post'
+        }
+    ]
 })

@@ -42,6 +42,11 @@ app.get('/', (request, response) => {
 });
 
 // API Routes
+app.use('/api/v1/auth', routes.auth);
+app.use('/api/v1/users', routes.users);
+app.use('/api/v1/posts', routes.posts);
+app.use('/api/v1/items', routes.items);
+app.use('/api/v1/events', routes.events);
 
 // --------------------- START SERVER --------------------- //
 app.listen(PORT, () => {

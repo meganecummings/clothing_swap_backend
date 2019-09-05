@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const defaultImage = require('./assets');
+// const defaultImage = require('./assets/avaaatar_default.png');
+
 
 const UserSchema = new Schema({
     username: {
-        type: String, 
+        type: String,
         unique: true,
-        required: true, 
-        maxlength: 30
-    }, 
+        required: true,
+        maxlength: 30,
+    },
     password: {
         type: String,
         required: true,
@@ -31,7 +32,7 @@ const UserSchema = new Schema({
     },
     photo: {
         type: String,
-        default: defaultImage
+        default: `https://avataaars.io/?avatarStyle=Circle&topType=LongHairMiaWallace&accessoriesType=Kurt&hairColor=Brown&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Surprised&eyebrowType=UnibrowNatural&mouthType=Twinkle&skinColor=Tanned`
     },
     size: {
         type: Array
