@@ -13,7 +13,7 @@ router.put('/new',ctrl.post.create);
 router.delete('/:post_id', ctrl.post.delete);
 
 // comments Route
-router.get('/comments', ctrl.comments.index);
+router.get('/:post_id/comments', ctrl.comments.index);
 router.get('/:post_id/comments/:comment_id', ctrl.comments.show);
 router.put('/:post_id/comments/new', ctrl.comments.create);
 router.delete('/comments/:comment_id', ctrl.comments.delete);

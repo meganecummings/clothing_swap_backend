@@ -6,7 +6,7 @@ function getTime() {
 
 module.exports = {
     index: (request, response) => {
-        db.Post.findByIdAndDelete(request.params.post_id, (error, foundPost) => {
+        db.Post.findbyId(request.params.post_id, (error, foundPost) => {
             if (error) return response.status(400).json({
                 status: 400,
                 message: 'Something went wrong, Please try again'
@@ -29,7 +29,7 @@ module.exports = {
             const foundComment = foundPost.comments.id(request.params.comment_id);
             response.status(200).json({
                 status: 200,
-                data: foundPost, 
+                data: foundComment, 
                 rquestedAt: getTime()
             });
         });
