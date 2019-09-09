@@ -8,7 +8,7 @@ const authRequired = require('../middleware/authRequired');
 // USER controllers
 router.get('/', ctrl.users.index);
 router.get('/:user_id', ctrl.users.show);
-router.put('/:user_id/edit', ctrl.users.edit);
+router.put('/:user_id/edit', ctrl.users.update);
 router.delete('/:user_id/delete', authRequired, ctrl.users.delete);
 router.post('/new', ctrl.users.create);
 

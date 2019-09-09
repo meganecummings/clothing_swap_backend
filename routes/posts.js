@@ -6,11 +6,11 @@ const authRequired = require('../middleware/authRequired');
 // Endpoint ==> 'api/v1/posts'
 
 // Posts Route
-router.get('/:post_id', ctrl.post.show);
-router.get('/', ctrl.post.index);
-router.put('/:post_id/edit', ctrl.post.edit);
-router.put('/new',ctrl.post.create);
-router.delete('/:post_id', ctrl.post.delete);
+router.get('/:post_id', ctrl.posts.show);
+router.get('/', ctrl.posts.index);
+router.put('/:post_id/edit', ctrl.posts.update);
+router.put('/new',ctrl.posts.create);
+router.delete('/:post_id', ctrl.posts.delete);
 
 // comments Route
 router.get('/:post_id/comments', ctrl.comments.index);

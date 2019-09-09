@@ -48,7 +48,7 @@ module.exports = {
             });
         });
     },
-    edit: (request, response) => {
+    update: (request, response) => {
         db.Event.findByIdAndUpdate(request.params.event_id, request.body, { new: true }, (error, editedEvent) => {
             if (error) return response.status(400).json({ status: 400, message: 'Something went wrong. Please try again'});
             return response.status(202).json({

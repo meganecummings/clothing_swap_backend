@@ -60,7 +60,7 @@ module.exports = {
             });
         });
     },
-    edit: (request, response) => {
+    update: (request, response) => {
         db.Item.findByIdAndUpdate(request.params.item_id, request.body, { new: true }, (error, editedUser) => {
             if (error) return response.status(400).json({ status: 400, error, message: 'Something went wrong. Please try again' });
             return response.status(202).json({

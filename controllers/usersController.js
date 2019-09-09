@@ -44,7 +44,7 @@ module.exports = {
             });
         });
     },
-    edit: (request, response) => {
+    update: (request, response) => {
         db.User.findByIdAndUpdate(request.paramas.user_id, request.body, { new: true }, (error, editedUser) => {
             if (error) return response.status(400).json({
                 status: 400, error, message: 'Something went wrong. Please try again'

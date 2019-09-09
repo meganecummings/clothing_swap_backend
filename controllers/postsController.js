@@ -72,7 +72,7 @@ module.exports = {
             })
         });
     },
-    edit: (request, response) => {
+    update: (request, response) => {
         db.Post.findByIdAndUpdate(request.params.post_id, request.body, { new: true }, (error, updatedPost) => {
             if (error) return request.status(400).json({
                 status: 400,
