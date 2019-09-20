@@ -29,7 +29,7 @@ app.use(session({
 }));
 
 const corsOptions = {
-    origin: ['http://localhost:3000'],
+    origin: ['https://meganecummings.github.io/clothingswap-app/'],
     credentials: true,
     optionsSuccessStatus: 200
 }
