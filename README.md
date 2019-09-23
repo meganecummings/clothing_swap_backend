@@ -1,6 +1,6 @@
 ## ClothingSwap
 
-This is the Backend gitHub. Please see below for the frontend gitHub. 
+This is the Server-Side for my Clothing Swap MERN stack application on gitHub. Please see below for the Client-Side Repo on  gitHub. 
 https://git.generalassemb.ly/megcummings/ClothingSwap
 
 #### What is ClothingSwap?
