@@ -34,6 +34,9 @@ const corsOptions = {
     preflightContinue: true,
     optionsSuccessStatus: 200
 }
+
+app.options('*', cors())
+
 app.use(cors(corsOptions));
 
   // --------------------- ROUTES --------------------- //
