@@ -31,6 +31,7 @@ app.use(session({
 const corsOptions = {
     origin: ['https://meganecummings.github.io/clothingswap-app'],
     credentials: true,
+    preflightContinue: true,
     optionsSuccessStatus: 200
 }
 app.use(cors(corsOptions));
