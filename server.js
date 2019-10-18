@@ -6,8 +6,17 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const routes = require('./routes');
 
-
 // --------------------- MIDDLEWARE --------------------- //
+
+const corsOptions = {
+    origin: 'https://meganecummings.github.io',
+    credentials: true,
+    preflightContinue: true,
+    optionsSuccessStatus: 200
+}
+
+app.use(cors(corsOptions));
+
 // BodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
@@ -28,17 +37,6 @@ app.use(session({
     saveUninitialized: false
 }));
 
-const corsOptions = {
-    origin: ['https://meganecummings.github.io/clothingswap-app'],
-    credentials: true,
-    preflightContinue: true,
-    optionsSuccessStatus: 200
-}
-
-app.options('*', cors())
-
-app.use(cors(corsOptions));
-
   // --------------------- ROUTES --------------------- //
 // Root Route
 app.get('/', (request, response) => {
@@ -46,15 +44,10 @@ app.get('/', (request, response) => {
 });
 
 // API Routes
-app.options('https://meganecummings.github.io', cors()) 
 app.use('/api/v1/auth', routes.auth);
-app.options('https://meganecummings.github.io', cors()) 
 app.use('/api/v1/users', routes.users);
-app.options('https://meganecummings.github.io', cors()) 
 app.use('/api/v1/posts', routes.posts);
-app.options('https://meganecummings.github.io', cors()) 
 app.use('/api/v1/items', routes.items);
-app.options('https://meganecummings.github.io', cors()) 
 app.use('/api/v1/events', routes.events);
 
 // --------------------- START SERVER --------------------- //
