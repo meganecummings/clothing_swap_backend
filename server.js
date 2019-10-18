@@ -46,10 +46,15 @@ app.get('/', (request, response) => {
 });
 
 // API Routes
+app.options('https://meganecummings.github.io', cors()) 
 app.use('/api/v1/auth', routes.auth);
+app.options('https://meganecummings.github.io', cors()) 
 app.use('/api/v1/users', routes.users);
+app.options('https://meganecummings.github.io', cors()) 
 app.use('/api/v1/posts', routes.posts);
+app.options('https://meganecummings.github.io', cors()) 
 app.use('/api/v1/items', routes.items);
+app.options('https://meganecummings.github.io', cors()) 
 app.use('/api/v1/events', routes.events);
 
 // --------------------- START SERVER --------------------- //
